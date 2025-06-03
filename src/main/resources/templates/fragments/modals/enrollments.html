@@ -1,0 +1,78 @@
+<!-- fragments/modals/enrollments.html -->
+<div th:fragment="enrollmentModal" xmlns:th="http://www.thymeleaf.org">
+    <!-- Create Enrollment Modal -->
+    <div class="modal fade" id="createEnrollmentModal" tabindex="-1" aria-labelledby="createEnrollmentModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="createEnrollmentModalLabel">
+                        <i class="bi bi-calendar2-plus me-2"></i>Create Enrollment
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form id="createEnrollmentForm">
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="studentSelect" class="form-label">Student</label>
+                                    <select class="form-select" id="studentSelect" name="studentId" required>
+                                        <option value="">Select a student...</option>
+                                        <option th:each="student : ${students}"
+                                                th:value="${student.id}"
+                                                th:text="${student.firstName + ' ' + student.lastName}">
+                                            Student Name
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="courseSelect" class="form-label">Course</label>
+                                    <select class="form-select" id="courseSelect" name="courseId" required>
+                                        <option value="">Select a course...</option>
+                                        <option th:each="course : ${courses}"
+                                                th:value="${course.id}"
+                                                th:text="${course.title}">
+                                            Course Title
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="enrollmentDate" class="form-label">Enrollment Date</label>
+                                    <input type="date" class="form-control" id="enrollmentDate" name="enrollmentDate" required>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="statusSelect" class="form-label">Status</label>
+                                    <select class="form-select" id="statusSelect" name="status">
+                                        <option value="PENDING">Pending</option>
+                                        <option value="APPROVED">Approved</option>
+                                        <option value="IN_PROGRESS">In Progress</option>
+                                        <option value="COMPLETED">Completed</option>
+                                        <option value="REJECTED">Rejected</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="notes" class="form-label">Notes (Optional)</label>
+                            <textarea class="form-control" id="notes" name="notes" rows="3" placeholder="Additional notes about the enrollment..."></textarea>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                        <button type="submit" class="btn btn-primary">
+                            <i class="bi bi-check-circle me-1"></i>Create Enrollment
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

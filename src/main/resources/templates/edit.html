@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/head :: head}"></head>
+<body>
+
+<!-- Navbar -->
+<div th:replace="~{fragments/navbar :: navbar}"></div>
+
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow-sm">
+                <div class="card-header">
+                    <h2 class="mb-0">Edit Course</h2>
+                </div>
+                <div class="card-body">
+                    <form th:action="@{/courses/update/{id}(id=${course.id})}" th:object="${course}" method="post">
+                        <div class="mb-3">
+                            <label for="name" class="form-label">Course Name:</label>
+                            <input type="text" class="form-control" id="name" th:field="*{name}" required />
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="description" class="form-label">Description:</label>
+                            <textarea class="form-control" id="description" th:field="*{description}" rows="4"></textarea>
+                        </div>
+
+                        <div class="d-flex justify-content-between">
+                            <a href="/courses" class="btn btn-secondary">Cancel</a>
+                            <button type="submit" class="btn btn-primary">Update Course</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Footer -->
+<div th:replace="~{fragments/footer :: footer}"></div>
+
+</body>
+</html>

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/head :: head}"></head>
+<body>
+
+<!-- Navbar -->
+<div th:replace="~{fragments/navbar :: navbar}"></div>
+
+<div class="container mt-4">
+    <!-- Breadcrumb -->
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb" id="breadcrumb">
+            <li class="breadcrumb-item active" aria-current="page">Dashboard</li>
+        </ol>
+    </nav>
+
+    <!-- Alert container -->
+    <div id="alert-container" class="position-fixed top-0 start-50 translate-middle-x p-3" style="z-index: 1050;"></div>
+
+    <!-- Main content -->
+    <div id="main-content">
+        <div th:replace="~{fragments/dashboard :: dashboard}"></div>
+        <div th:replace="~{students :: students}"></div>
+        <div th:replace="~{fragments/courses :: courses}"></div>
+        <div th:insert="fragments/enrollments :: enrollments"></div>
+    </div>
+</div>
+
+<!-- Footer -->
+<div th:replace="~{fragments/footer :: footer}"></div>
+
+<!-- Modals -->
+<div th:replace="~{fragments/modals/student :: studentModal}"></div>
+<div th:with="course=${course != null ? course : new com.example.student_enrollment.dto.CourseDTO()}"
+     th:replace="~{fragments/modals/course :: courseModal}"></div>
+<div th:replace="~{fragments/modals/enrollments :: enrollmentModal}"></div>
+<div th:replace="~{fragments/modals/status :: updateStatusModal}"></div>
+<div th:replace="~{fragments/modals/grade :: updateGradeModal}"></div>
+<div th:replace="~{fragments/modals/delete :: deleteModal}"></div>
+<div th:replace="~{fragments/modals/login :: loginModal}"></div>
+
+<!-- Delete Confirmation Modal -->
+<div class="modal fade" id="deleteConfirmModal" tabindex="-1" aria-hidden="true" th:fragment="deleteModal"
+     xmlns:th="http://www.w3.org/1999/xhtml">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Confirm Delete</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p id="deleteConfirmMessage">Are you sure you want to delete this item?</p>
+                <input type="hidden" id="deleteItemId" name="id">
+                <input type="hidden" id="deleteItemType" name="type">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-danger" id="confirmDeleteBtn">Delete</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- JS Scripts -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script th:src="@{/js/login.js}"></script>
+<script th:src="@{/js/authentication.js}"></script>
+<script th:src="@{/js/students.js}"></script>
+<script th:src="@{/js/main.js}"></script>
+<script th:src="@{/js/courses.js}"></script>
+<script th:src="@{/js/enrollments.js}"></script>
+
+</body>
+</html>

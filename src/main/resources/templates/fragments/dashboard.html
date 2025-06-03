@@ -1,0 +1,122 @@
+<div th:fragment="dashboard" id="dashboard" class="content-section active" xmlns:th="http://www.w3.org/1999/xhtml">
+    <div class="row">
+        <div class="col-md-3 mb-4">
+            <div class="card text-white bg-primary h-100">
+                <div class="card-body d-flex flex-column justify-content-center align-items-center">
+                    <i class="bi bi-people-fill fs-1"></i>
+                    <h3 class="card-title mt-2">Students</h3>
+                    <p class="card-text fs-4" id="student-count" th:text="${studentCount != null} ? ${studentCount} : 0">0</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 mb-4">
+            <div class="card text-white bg-success h-100">
+                <div class="card-body d-flex flex-column justify-content-center align-items-center">
+                    <i class="bi bi-book-fill fs-1"></i>
+                    <h3 class="card-title mt-2">Courses</h3>
+                    <p class="card-text fs-4" id="course-count" th:text="${courseCount != null} ? ${courseCount} : 0">0</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 mb-4">
+            <div class="card text-white bg-warning h-100">
+                <div class="card-body d-flex flex-column justify-content-center align-items-center">
+                    <i class="bi bi-pencil-square fs-1"></i>
+                    <h3 class="card-title mt-2">Enrollments</h3>
+                    <p class="card-text fs-4" id="enrollment-count" th:text="${enrollmentCount != null} ? ${enrollmentCount} : 0">0</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 mb-4">
+            <div class="card text-white bg-danger h-100">
+                <div class="card-body d-flex flex-column justify-content-center align-items-center">
+                    <i class="bi bi-bar-chart-fill fs-1"></i>
+                    <h3 class="card-title mt-2">Popular Courses</h3>
+                    <p class="card-text fs-4" th:text="${popularCourses != null} ? ${#lists.size(popularCourses)} : 0">0</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mt-4">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <h5><i class="bi bi-clock-history me-2"></i>Recent Enrollments</h5>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-sm">
+                            <thead>
+                            <tr>
+                                <th>Student</th>
+                                <th>Course</th>
+                                <th>Date</th>
+                                <th>Status</th>
+                            </tr>
+                            </thead>
+                            <tbody id="recent-enrollments">
+                            <tr th:if="${recentEnrollments == null or #lists.isEmpty(recentEnrollments)}">
+                                <td colspan="4" class="text-center text-muted">No recent enrollments</td>
+                            </tr>
+                            <tr th:each="enrollment : ${recentEnrollments}">
+                                <td th:text="${enrollment.studentName != null} ? ${enrollment.studentName} : 'N/A'">Student Name</td>
+                                <td th:text="${enrollment.courseTitle != null} ? ${enrollment.courseTitle} : 'N/A'">Course Name</td>
+                                <td th:text="${enrollment.enrollmentDate != null} ? ${#temporals.format(enrollment.enrollmentDate, 'dd-MM-yyyy')} : 'N/A'">Date</td>
+                                <td>
+                                    <span class="badge bg-success" th:text="${enrollment.status != null} ? ${enrollment.status} : 'Active'">Active</span>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <h5><i class="bi bi-trophy me-2"></i>Popular Courses</h5>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-sm">
+                            <thead>
+                            <tr>
+                                <th>Course</th>
+                                <th>Code</th>
+                                <th>Capacity</th>
+                                <th>Enrolled</th>
+                            </tr>
+                            </thead>
+                            <tbody id="popular-courses">
+                            <tr th:if="${popularCourses == null or #lists.isEmpty(popularCourses)}">
+                                <td colspan="4" class="text-center text-muted">No courses available</td>
+                            </tr>
+                            <tr th:each="course : ${popularCourses}">
+                                <td th:text="${course.title != null} ? ${course.title} : 'N/A'">Course Name</td>
+                                <td th:text="${course.code != null} ? ${course.code} : 'N/A'">Code</td>
+                                <td th:text="${course.maxCapacity != null} ? ${course.maxCapacity} : 0">0</td>
+                                <td th:text="${course.enrolled != null} ? ${course.enrolled} : 0">0</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script th:inline="javascript">
+        document.addEventListener("DOMContentLoaded", function () {
+            console.log("=== DASHBOARD DEBUG INFO ===");
+            console.log("Student Count:", /*[[${studentCount}]]*/ '0');
+            console.log("Course Count:", /*[[${courseCount}]]*/ '0');
+            console.log("Enrollment Count:", /*[[${enrollmentCount}]]*/ '0');
+            console.log("Recent Enrollments:", /*[[${recentEnrollments}]]*/ []);
+            console.log("Popular Courses:", /*[[${popularCourses}]]*/ []);
+            console.log("===========================");
+        });
+    </script>
+</div>

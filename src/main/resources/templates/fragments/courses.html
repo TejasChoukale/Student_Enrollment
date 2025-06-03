@@ -1,0 +1,49 @@
+<div th:fragment="courses" id="courses" class="content-section" xmlns:th="http://www.w3.org/1999/xhtml">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2><i class="bi bi-book-fill me-2"></i>Courses</h2>
+        <button class="btn btn-primary" id="add-course-btn">
+            <i class="bi bi-journal-plus me-1"></i> Add Course
+        </button>
+    </div>
+
+    <div class="card shadow-sm">
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Code</th>
+                        <th>Title</th>
+                        <th>Credits</th>
+                        <th>Capacity</th>
+                        <th>Enrolled</th>
+                        <th>Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody id="courses-table-body">
+                    <tr th:if="${courses == null || courses.isEmpty()}">
+                        <td colspan="7" class="text-center">Loading courses...</td>
+                    </tr>
+                    <tr th:each="course, status : ${courses}" th:if="${courses != null && !courses.isEmpty()}">
+                        <td th:text="${status.count}">1</td>
+                        <td th:text="${course.code}">Code</td>
+                        <td th:text="${course.title}">Title</td>
+                        <td th:text="${course.credits}">Credits</td>
+                        <td th:text="${course.maxCapacity}">Capacity</td>
+                        <td th:text="${course.currentEnrollment}">Enrolled</td>
+                        <td>
+                            <button class="btn btn-sm btn-outline-primary edit-course-btn" th:data-id="${course.id}">
+                                <i class="bi bi-pencil"></i>
+                            </button>
+                            <button class="btn btn-sm btn-outline-danger delete-course-btn" th:data-id="${course.id}">
+                                <i class="bi bi-trash"></i>
+                            </button>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
